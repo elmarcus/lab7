@@ -30,6 +30,22 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
+app.get('/fortune', function (req, res, next) {
+
+fs.readFile(__dirname + '/public/fortunes.txt',function(err,data) {
+	var fortunes = [];
+	
+	fortunes = data.toString().split("\n");
+	var max = fortunes.length;
+	var min = 0;
+	
+	var number = Math.floor(Math.random() * (max - min + 1)) + min;
+	
+		
+	res.status(200).json(fortunes[number]);
+})
+
+})
 app.get('/getcity',function(req,res,next) {
 
 
